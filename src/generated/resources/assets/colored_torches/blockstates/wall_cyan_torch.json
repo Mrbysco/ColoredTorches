@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "colored_torches:block/wall_cyan_torch"
+    },
+    "facing=north": {
+      "model": "colored_torches:block/wall_cyan_torch",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "colored_torches:block/wall_cyan_torch",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "colored_torches:block/wall_cyan_torch",
+      "y": 180
+    }
+  }
+}
