@@ -27,6 +27,7 @@ public class ColoredTorchesMod {
 
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
 			eventBus.addListener(ClientHandler::registerParticleFactories);
+			eventBus.addListener(ClientHandler::addPackFinders);
 		});
 	}
 }
