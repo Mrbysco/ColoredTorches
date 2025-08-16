@@ -1,4 +1,4 @@
-// 1.21.5	2025-08-16T21:53:05.7458771	Colored Torches Recipes
+// 1.21.8	2025-08-16T21:57:00.3730404	Colored Torches Recipes
 d775edc819bc14ae05c5d16f79b03ea891607e0c data/colored_torches/advancement/recipes/misc/black_torch.json
 d372cfbaaa7042af6b7870be746c552a77eba979 data/colored_torches/advancement/recipes/misc/black_torch_from_dyeing.json
 ca480802666e3c1881f3a894aa439bf5d1222cb1 data/colored_torches/advancement/recipes/misc/blue_torch.json
