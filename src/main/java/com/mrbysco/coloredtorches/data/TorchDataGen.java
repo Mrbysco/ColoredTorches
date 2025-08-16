@@ -10,34 +10,34 @@ import com.mrbysco.coloredtorches.data.data.tags.TorchItemTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.BlockTagsProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.common.data.BlockTagsProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.concurrent.CompletableFuture;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public class TorchDataGen {
 	@SubscribeEvent
 	public static void gatherData(GatherDataEvent event) {
 		DataGenerator generator = event.getGenerator();
 		PackOutput packOutput = generator.getPackOutput();
 		CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
-		ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+		ExistingFileHelper helper = event.getExistingFileHelper();
 
 		if (event.includeServer()) {
-			generator.addProvider(event.includeServer(), new TorchLootProvider(packOutput));
-			generator.addProvider(event.includeServer(), new TorchRecipeProvider(packOutput));
+			generator.addProvider(true, new TorchLootProvider(packOutput, lookupProvider));
+			generator.addProvider(true, new TorchRecipeProvider(packOutput, lookupProvider));
 			BlockTagsProvider provider;
-			generator.addProvider(event.includeServer(), provider = new TorchBlockTagsProvider(packOutput, lookupProvider, existingFileHelper));
-			generator.addProvider(event.includeServer(), new TorchItemTagsProvider(packOutput, lookupProvider, provider, existingFileHelper));
+			generator.addProvider(true, provider = new TorchBlockTagsProvider(packOutput, lookupProvider, helper));
+			generator.addProvider(true, new TorchItemTagsProvider(packOutput, lookupProvider, provider, helper));
 		}
 		if (event.includeClient()) {
-			generator.addProvider(event.includeClient(), new TorchLanguageProvider(packOutput));
-			generator.addProvider(event.includeClient(), new TorchBlockStateProvider(packOutput, existingFileHelper));
-			generator.addProvider(event.includeClient(), new TorchItemModelProvider(packOutput, existingFileHelper));
+			generator.addProvider(true, new TorchLanguageProvider(packOutput));
+			generator.addProvider(true, new TorchBlockStateProvider(packOutput, helper));
+			generator.addProvider(true, new TorchItemModelProvider(packOutput, helper));
 		}
 	}
 }

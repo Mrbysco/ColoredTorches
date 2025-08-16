@@ -14,8 +14,8 @@ public class ColoredTorchBlock extends TorchBlock {
 	public final ParticleColor color;
 
 	public ColoredTorchBlock(Properties properties, DyeColor dyeColor) {
-		super(properties, ParticleTypes.FLAME);
-		this.color = ParticleColor.fromInt(dyeColor.getFireworkColor());
+		super(ParticleTypes.FLAME, properties);
+		this.color = new ParticleColor(dyeColor.getFireworkColor());
 	}
 
 	@Override

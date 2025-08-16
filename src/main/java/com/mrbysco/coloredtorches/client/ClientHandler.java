@@ -4,13 +4,12 @@ import com.mrbysco.coloredtorches.ColoredTorchesMod;
 import com.mrbysco.coloredtorches.client.particle.ColoredFlameParticle;
 import com.mrbysco.coloredtorches.registry.ParticleRegistry;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
-import net.minecraft.server.packs.PathPackResources;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.event.AddPackFindersEvent;
-import net.minecraftforge.fml.ModList;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.event.AddPackFindersEvent;
 
 public class ClientHandler {
 	public static void registerParticleFactories(RegisterParticleProvidersEvent event) {
@@ -19,15 +18,8 @@ public class ClientHandler {
 
 	public static void addPackFinders(AddPackFindersEvent event) {
 		if (event.getPackType() == PackType.CLIENT_RESOURCES) {
-			var resourcePath = ModList.get().getModFileById(ColoredTorchesMod.MOD_ID).getFile().findResource("programmer_art");
-			var pack = Pack.readMetaAndCreate("builtin/programmer_art",
-					Component.literal("Programmer Art"),
-					false,
-					(path) -> new PathPackResources(path, resourcePath, false),
-					PackType.CLIENT_RESOURCES,
-					Pack.Position.TOP,
-					PackSource.BUILT_IN);
-			event.addRepositorySource((packConsumer) -> packConsumer.accept(pack));
+			event.addPackFinders(ResourceLocation.fromNamespaceAndPath(ColoredTorchesMod.MOD_ID, "programmer_art"), PackType.CLIENT_RESOURCES,
+					Component.literal("Programmer Art"), PackSource.BUILT_IN, false, Pack.Position.TOP);
 		}
 	}
 }

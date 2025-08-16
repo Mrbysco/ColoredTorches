@@ -1,12 +1,12 @@
 package com.mrbysco.coloredtorches.data.assets;
 
 import com.mrbysco.coloredtorches.ColoredTorchesMod;
+import com.mrbysco.coloredtorches.block.ColoredTorchBlock;
 import com.mrbysco.coloredtorches.registry.TorchRegistry;
 import net.minecraft.data.PackOutput;
-import net.minecraft.world.level.block.Block;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredBlock;
 
 public class TorchItemModelProvider extends ItemModelProvider {
 	public TorchItemModelProvider(PackOutput packOutput, ExistingFileHelper helper) {
@@ -33,7 +33,7 @@ public class TorchItemModelProvider extends ItemModelProvider {
 		torchItem(TorchRegistry.BLACK_TORCH);
 	}
 
-	public void torchItem(RegistryObject<Block> torch) {
+	public void torchItem(DeferredBlock<ColoredTorchBlock> torch) {
 		String path = torch.getId().getPath();
 		singleTexture(path, mcLoc("item/generated"), "layer0", modLoc("block/" + path));
 	}

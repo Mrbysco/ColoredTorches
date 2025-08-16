@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "minecraft:coals"
+    },
+    "D": {
+      "tag": "c:dyes/brown"
+    },
+    "S": {
+      "tag": "c:rods/wooden"
+    }
+  },
+  "pattern": [
+    "C",
+    "D",
+    "S"
+  ],
+  "result": {
+    "count": 4,
+    "id": "colored_torches:brown_torch"
+  }
+}

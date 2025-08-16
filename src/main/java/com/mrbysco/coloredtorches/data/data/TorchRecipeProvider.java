@@ -1,9 +1,10 @@
 package com.mrbysco.coloredtorches.data.data;
 
 import com.mrbysco.coloredtorches.registry.TorchRegistry;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
@@ -11,39 +12,39 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.registries.DeferredItem;
 
-import java.util.function.Consumer;
+import java.util.concurrent.CompletableFuture;
 
 
 public class TorchRecipeProvider extends RecipeProvider {
-	public TorchRecipeProvider(PackOutput packOutput) {
-		super(packOutput);
+	public TorchRecipeProvider(PackOutput packOutput, CompletableFuture<Provider> registries) {
+		super(packOutput, registries);
 	}
 
 	@Override
-	protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+	protected void buildRecipes(RecipeOutput output) {
 		//Torch recipes
-		torchRecipe(consumer, TorchRegistry.WHITE_TORCH_ITEM, Tags.Items.DYES_WHITE);
-		torchRecipe(consumer, TorchRegistry.ORANGE_TORCH_ITEM, Tags.Items.DYES_ORANGE);
-		torchRecipe(consumer, TorchRegistry.MAGENTA_TORCH_ITEM, Tags.Items.DYES_MAGENTA);
-		torchRecipe(consumer, TorchRegistry.LIGHT_BLUE_TORCH_ITEM, Tags.Items.DYES_LIGHT_BLUE);
-		torchRecipe(consumer, TorchRegistry.YELLOW_TORCH_ITEM, Tags.Items.DYES_YELLOW);
-		torchRecipe(consumer, TorchRegistry.LIME_TORCH_ITEM, Tags.Items.DYES_LIME);
-		torchRecipe(consumer, TorchRegistry.PINK_TORCH_ITEM, Tags.Items.DYES_PINK);
-		torchRecipe(consumer, TorchRegistry.GRAY_TORCH_ITEM, Tags.Items.DYES_GRAY);
-		torchRecipe(consumer, TorchRegistry.LIGHT_GRAY_TORCH_ITEM, Tags.Items.DYES_LIGHT_GRAY);
-		torchRecipe(consumer, TorchRegistry.CYAN_TORCH_ITEM, Tags.Items.DYES_CYAN);
-		torchRecipe(consumer, TorchRegistry.PURPLE_TORCH_ITEM, Tags.Items.DYES_PURPLE);
-		torchRecipe(consumer, TorchRegistry.BLUE_TORCH_ITEM, Tags.Items.DYES_BLUE);
-		torchRecipe(consumer, TorchRegistry.BROWN_TORCH_ITEM, Tags.Items.DYES_BROWN);
-		torchRecipe(consumer, TorchRegistry.GREEN_TORCH_ITEM, Tags.Items.DYES_GREEN);
-		torchRecipe(consumer, TorchRegistry.RED_TORCH_ITEM, Tags.Items.DYES_RED);
-		torchRecipe(consumer, TorchRegistry.BLACK_TORCH_ITEM, Tags.Items.DYES_BLACK);
+		torchRecipe(output, TorchRegistry.WHITE_TORCH_ITEM, Tags.Items.DYES_WHITE);
+		torchRecipe(output, TorchRegistry.ORANGE_TORCH_ITEM, Tags.Items.DYES_ORANGE);
+		torchRecipe(output, TorchRegistry.MAGENTA_TORCH_ITEM, Tags.Items.DYES_MAGENTA);
+		torchRecipe(output, TorchRegistry.LIGHT_BLUE_TORCH_ITEM, Tags.Items.DYES_LIGHT_BLUE);
+		torchRecipe(output, TorchRegistry.YELLOW_TORCH_ITEM, Tags.Items.DYES_YELLOW);
+		torchRecipe(output, TorchRegistry.LIME_TORCH_ITEM, Tags.Items.DYES_LIME);
+		torchRecipe(output, TorchRegistry.PINK_TORCH_ITEM, Tags.Items.DYES_PINK);
+		torchRecipe(output, TorchRegistry.GRAY_TORCH_ITEM, Tags.Items.DYES_GRAY);
+		torchRecipe(output, TorchRegistry.LIGHT_GRAY_TORCH_ITEM, Tags.Items.DYES_LIGHT_GRAY);
+		torchRecipe(output, TorchRegistry.CYAN_TORCH_ITEM, Tags.Items.DYES_CYAN);
+		torchRecipe(output, TorchRegistry.PURPLE_TORCH_ITEM, Tags.Items.DYES_PURPLE);
+		torchRecipe(output, TorchRegistry.BLUE_TORCH_ITEM, Tags.Items.DYES_BLUE);
+		torchRecipe(output, TorchRegistry.BROWN_TORCH_ITEM, Tags.Items.DYES_BROWN);
+		torchRecipe(output, TorchRegistry.GREEN_TORCH_ITEM, Tags.Items.DYES_GREEN);
+		torchRecipe(output, TorchRegistry.RED_TORCH_ITEM, Tags.Items.DYES_RED);
+		torchRecipe(output, TorchRegistry.BLACK_TORCH_ITEM, Tags.Items.DYES_BLACK);
 	}
 
-	private void torchRecipe(Consumer<FinishedRecipe> consumer, RegistryObject<Item> torchObject, TagKey<Item> tag) {
+	private void torchRecipe(RecipeOutput output, DeferredItem<? extends Item> torchObject, TagKey<Item> tag) {
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, torchObject.get(), 8)
 				.pattern("TTT")
 				.pattern("TDT")
@@ -52,7 +53,7 @@ public class TorchRecipeProvider extends RecipeProvider {
 				.define('T', Items.TORCH)
 				.unlockedBy("has_dye", has(tag))
 				.unlockedBy("has_torch", has(Items.TORCH))
-				.save(consumer, new ResourceLocation(torchObject.getId().getNamespace(), torchObject.getId().getPath() + "_from_dyeing"));
+				.save(output, ResourceLocation.fromNamespaceAndPath(torchObject.getId().getNamespace(), torchObject.getId().getPath() + "_from_dyeing"));
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, torchObject.get(), 4)
 				.pattern("C")
@@ -64,6 +65,6 @@ public class TorchRecipeProvider extends RecipeProvider {
 				.unlockedBy("has_dye", has(tag))
 				.unlockedBy("has_coal", has(ItemTags.COALS))
 				.unlockedBy("has_rod", has(Tags.Items.RODS_WOODEN))
-				.save(consumer);
+				.save(output);
 	}
 }

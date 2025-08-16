@@ -3,7 +3,7 @@ package com.mrbysco.coloredtorches.data.assets;
 import com.mrbysco.coloredtorches.ColoredTorchesMod;
 import com.mrbysco.coloredtorches.registry.TorchRegistry;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.common.data.LanguageProvider;
 
 public class TorchLanguageProvider extends LanguageProvider {
 	public TorchLanguageProvider(PackOutput packOutput) {

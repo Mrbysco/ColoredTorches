@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+issueTrackerURL="https://github.com/Mrbysco/ColoredTorches/issues"
+license="MIT"
+
+[[mods]]
+modId="colored_torches"
+version="${file.jarVersion}"
+displayName="Colored Torches"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/colored-torches"
+authors="Mrbysco, ShyNieke"
+description='''
+Adds a torch for each dye color, providing 16 torches in total.
+'''
+[[dependencies.colored_torches]]
+    modId="minecraft"
+    type="required"
+    versionRange="[1.21,1.22)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.colored_torches]]
+    modId="neoforge"
+    type="required"
+    versionRange="[21.1.1,]"
+    ordering="NONE"
+    side="BOTH"

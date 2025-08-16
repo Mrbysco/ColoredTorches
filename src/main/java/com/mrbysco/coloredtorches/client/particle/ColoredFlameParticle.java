@@ -11,8 +11,8 @@ import net.minecraft.client.particle.RisingParticle;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.util.Mth;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 public class ColoredFlameParticle extends RisingParticle {
 
@@ -59,8 +59,8 @@ public class ColoredFlameParticle extends RisingParticle {
 			this.sprite = spriteSet;
 		}
 
-		public Particle createParticle(ColoredFlameParticleTypeData data, ClientLevel p_106839_, double p_106840_, double p_106841_, double p_106842_, double p_106843_, double p_106844_, double p_106845_) {
-			ColoredFlameParticle coloredFlameParticle = new ColoredFlameParticle(p_106839_, p_106840_, p_106841_, p_106842_, p_106843_, p_106844_, p_106845_, data.color.getRed(), data.color.getGreen(), data.color.getBlue());
+		public Particle createParticle(ColoredFlameParticleTypeData data, ClientLevel level, double p_106840_, double p_106841_, double p_106842_, double p_106843_, double p_106844_, double p_106845_) {
+			ColoredFlameParticle coloredFlameParticle = new ColoredFlameParticle(level, p_106840_, p_106841_, p_106842_, p_106843_, p_106844_, p_106845_, data.color.getRed(), data.color.getGreen(), data.color.getBlue());
 			coloredFlameParticle.pickSprite(this.sprite);
 			return coloredFlameParticle;
 		}

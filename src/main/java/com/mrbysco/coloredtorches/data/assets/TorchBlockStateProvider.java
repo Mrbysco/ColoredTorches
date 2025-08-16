@@ -1,16 +1,17 @@
 package com.mrbysco.coloredtorches.data.assets;
 
 import com.mrbysco.coloredtorches.ColoredTorchesMod;
+import com.mrbysco.coloredtorches.block.ColoredTorchBlock;
+import com.mrbysco.coloredtorches.block.ColoredWallTorchBlock;
 import com.mrbysco.coloredtorches.registry.TorchRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredBlock;
 
 public class TorchBlockStateProvider extends BlockStateProvider {
 
@@ -38,7 +39,7 @@ public class TorchBlockStateProvider extends BlockStateProvider {
 		torch(TorchRegistry.BLACK_TORCH, TorchRegistry.WALL_BLACK_TORCH);
 	}
 
-	public void torch(RegistryObject<Block> block, RegistryObject<Block> wall) {
+	public void torch(DeferredBlock<ColoredTorchBlock> block, DeferredBlock<ColoredWallTorchBlock> wall) {
 		String blockPath = block.getId().getPath();
 		ModelFile torch = models().torch(blockPath, texture(blockPath)).renderType("cutout");
 		ModelFile wallTorch = models().torchWall("wall_" + blockPath, texture(blockPath)).renderType("cutout");
