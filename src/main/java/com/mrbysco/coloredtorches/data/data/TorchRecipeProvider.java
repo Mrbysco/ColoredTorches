@@ -1,12 +1,12 @@
 package com.mrbysco.coloredtorches.data.data;
 
 import com.mrbysco.coloredtorches.registry.TorchRegistry;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -19,12 +19,12 @@ import java.util.concurrent.CompletableFuture;
 
 
 public class TorchRecipeProvider extends RecipeProvider {
-	public TorchRecipeProvider(PackOutput packOutput, CompletableFuture<Provider> registries) {
-		super(packOutput, registries);
+	public TorchRecipeProvider(HolderLookup.Provider provider, RecipeOutput recipeOutput) {
+		super(provider, recipeOutput);
 	}
 
 	@Override
-	protected void buildRecipes(RecipeOutput output) {
+	protected void buildRecipes() {
 		//Torch recipes
 		torchRecipe(output, TorchRegistry.WHITE_TORCH_ITEM, Tags.Items.DYES_WHITE);
 		torchRecipe(output, TorchRegistry.ORANGE_TORCH_ITEM, Tags.Items.DYES_ORANGE);
@@ -45,7 +45,7 @@ public class TorchRecipeProvider extends RecipeProvider {
 	}
 
 	private void torchRecipe(RecipeOutput output, DeferredItem<? extends Item> torchObject, TagKey<Item> tag) {
-		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, torchObject.get(), 8)
+		shaped(RecipeCategory.MISC, torchObject.get(), 8)
 				.pattern("TTT")
 				.pattern("TDT")
 				.pattern("TTT")
@@ -53,9 +53,9 @@ public class TorchRecipeProvider extends RecipeProvider {
 				.define('T', Items.TORCH)
 				.unlockedBy("has_dye", has(tag))
 				.unlockedBy("has_torch", has(Items.TORCH))
-				.save(output, ResourceLocation.fromNamespaceAndPath(torchObject.getId().getNamespace(), torchObject.getId().getPath() + "_from_dyeing"));
+				.save(output, ResourceLocation.fromNamespaceAndPath(torchObject.getId().getNamespace(), torchObject.getId().getPath() + "_from_dyeing").toString());
 
-		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, torchObject.get(), 4)
+		shaped(RecipeCategory.MISC, torchObject.get(), 4)
 				.pattern("C")
 				.pattern("D")
 				.pattern("S")
@@ -66,5 +66,21 @@ public class TorchRecipeProvider extends RecipeProvider {
 				.unlockedBy("has_coal", has(ItemTags.COALS))
 				.unlockedBy("has_rod", has(Tags.Items.RODS_WOODEN))
 				.save(output);
+	}
+
+	public static class Runner extends RecipeProvider.Runner {
+		public Runner(PackOutput output, CompletableFuture<Provider> completableFuture) {
+			super(output, completableFuture);
+		}
+
+		@Override
+		protected RecipeProvider createRecipeProvider(HolderLookup.Provider provider, RecipeOutput recipeOutput) {
+			return new TorchRecipeProvider(provider, recipeOutput);
+		}
+
+		@Override
+		public String getName() {
+			return "Colored Torches Recipes";
+		}
 	}
 }

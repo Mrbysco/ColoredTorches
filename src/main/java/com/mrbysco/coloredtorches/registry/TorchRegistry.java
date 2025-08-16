@@ -81,23 +81,22 @@ public class TorchRegistry {
 	public static DeferredBlock<ColoredTorchBlock> registerTorch(DyeColor color) {
 		String name = color.getName() + "_torch";
 		return BLOCKS.registerBlock(name, (properties) -> new ColoredTorchBlock(properties, color),
-				BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel((p_50755_) -> {
-					return 14;
-				}).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY)
+				BlockBehaviour.Properties.of().noCollission().instabreak()
+						.lightLevel((state) -> 14).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY)
 		);
 	}
 
 	public static DeferredBlock<ColoredWallTorchBlock> registerWallTorch(DyeColor color, DeferredBlock<ColoredTorchBlock> torchObject) {
 		String name = color.getName() + "_torch";
 		return BLOCKS.registerBlock("wall_" + name, (properties) -> new ColoredWallTorchBlock(properties, color),
-				BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel((p_50886_) -> {
-					return 14;
-				}).sound(SoundType.WOOD).lootFrom(torchObject).pushReaction(PushReaction.DESTROY));
+				BlockBehaviour.Properties.of().noCollission().instabreak()
+						.lightLevel((state) -> 14).sound(SoundType.WOOD)
+						.pushReaction(PushReaction.DESTROY));
 	}
 
 	public static DeferredItem<Item> registerTorchItem(DeferredBlock<ColoredTorchBlock> torchObject, DeferredBlock<ColoredWallTorchBlock> wallTorchObject) {
 		return ITEMS.registerItem(torchObject.getId().getPath(), (properties) ->
-				new StandingAndWallBlockItem(torchObject.get(), wallTorchObject.get(), properties, Direction.DOWN));
+				new StandingAndWallBlockItem(torchObject.get(), wallTorchObject.get(), Direction.DOWN, properties), new Item.Properties().useBlockDescriptionPrefix());
 	}
 
 	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TORCH_TAB = CREATIVE_MODE_TABS.register("tab", () -> CreativeModeTab.builder()

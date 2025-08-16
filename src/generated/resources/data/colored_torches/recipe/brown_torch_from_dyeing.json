@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "D": {
-      "tag": "c:dyes/brown"
-    },
-    "T": {
-      "item": "minecraft:torch"
-    }
+    "D": "#c:dyes/brown",
+    "T": "minecraft:torch"
   },
   "pattern": [
     "TTT",
