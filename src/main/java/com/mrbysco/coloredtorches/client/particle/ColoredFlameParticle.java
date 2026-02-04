@@ -6,37 +6,42 @@ import com.mrbysco.coloredtorches.registry.ParticleRegistry;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.RisingParticle;
+import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.util.Mth;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import net.minecraft.util.RandomSource;
 
 public class ColoredFlameParticle extends RisingParticle {
 
-	ColoredFlameParticle(ClientLevel level, double p_106801_, double p_106802_, double p_106803_, double p_106804_, double p_106805_, double p_106806_, float r, float g, float b) {
-		super(level, p_106801_, p_106802_, p_106803_, p_106804_, p_106805_, p_106806_);
-		this.rCol = r;
-		this.gCol = g;
-		this.bCol = b;
+	public ColoredFlameParticle(ClientLevel level, double x, double y, double z,
+	                            double xSpeed, double ySpeed, double zSpeed,
+	                            TextureAtlasSprite atlasSprite, ParticleColor particleColor
+	) {
+		super(level, x, y, z, xSpeed, ySpeed, zSpeed, atlasSprite);
+		this.setColor(particleColor.getRed(), particleColor.getGreen(), particleColor.getBlue());
 	}
 
-	public ParticleRenderType getRenderType() {
-		return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
-	}
-
+	@Override
 	public void move(double x, double y, double z) {
 		this.setBoundingBox(this.getBoundingBox().move(x, y, z));
 		this.setLocationFromBoundingbox();
 	}
 
+	@Override
 	public float getQuadSize(float scaleFactor) {
 		float f = ((float) this.age + scaleFactor) / (float) this.lifetime;
 		return this.quadSize * (1.0F - f * f * 0.5F);
 	}
 
+	@Override
+	public SingleQuadParticle.Layer getLayer() {
+		return SingleQuadParticle.Layer.OPAQUE;
+	}
+
+	@Override
 	public int getLightColor(float partialTick) {
 		float f = ((float) this.age + partialTick) / (float) this.lifetime;
 		f = Mth.clamp(f, 0.0F, 1.0F);
@@ -51,7 +56,6 @@ public class ColoredFlameParticle extends RisingParticle {
 		return j | k << 16;
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	public static class Provider implements ParticleProvider<ColoredFlameParticleTypeData> {
 		private final SpriteSet sprite;
 
@@ -59,10 +63,19 @@ public class ColoredFlameParticle extends RisingParticle {
 			this.sprite = spriteSet;
 		}
 
-		public Particle createParticle(ColoredFlameParticleTypeData data, ClientLevel level, double p_106840_, double p_106841_, double p_106842_, double p_106843_, double p_106844_, double p_106845_) {
-			ColoredFlameParticle coloredFlameParticle = new ColoredFlameParticle(level, p_106840_, p_106841_, p_106842_, p_106843_, p_106844_, p_106845_, data.color.getRed(), data.color.getGreen(), data.color.getBlue());
-			coloredFlameParticle.pickSprite(this.sprite);
-			return coloredFlameParticle;
+		@Override
+		public Particle createParticle(
+				ColoredFlameParticleTypeData type,
+				ClientLevel level,
+				double x,
+				double y,
+				double z,
+				double xSpeed,
+				double ySpeed,
+				double zSpeed,
+				RandomSource randomSource
+		) {
+			return new ColoredFlameParticle(level, x, y, z, xSpeed, ySpeed, zSpeed, this.sprite.get(randomSource), type.color);
 		}
 
 		public static ParticleOptions createData(ParticleColor color) {

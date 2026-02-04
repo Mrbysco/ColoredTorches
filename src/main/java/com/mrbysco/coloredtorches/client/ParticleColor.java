@@ -36,7 +36,7 @@ public class ParticleColor {
 		this.g = g;
 		this.b = b;
 		this.a = a;
-		this.color = ARGB.color((int) (r * 255), (int) (g * 255), (int) (b * 255), (int) (a * 255));
+		this.color = ARGB.colorFromFloat(r, g, b, a);
 	}
 
 	public ParticleColor(double r, double g, double b, double a) {

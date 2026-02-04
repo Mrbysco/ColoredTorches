@@ -7,7 +7,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -53,7 +53,7 @@ public class TorchRecipeProvider extends RecipeProvider {
 				.define('T', Items.TORCH)
 				.unlockedBy("has_dye", has(tag))
 				.unlockedBy("has_torch", has(Items.TORCH))
-				.save(output, ResourceLocation.fromNamespaceAndPath(torchObject.getId().getNamespace(), torchObject.getId().getPath() + "_from_dyeing").toString());
+				.save(output, Identifier.fromNamespaceAndPath(torchObject.getId().getNamespace(), torchObject.getId().getPath() + "_from_dyeing").toString());
 
 		shaped(RecipeCategory.MISC, torchObject.get(), 4)
 				.pattern("C")

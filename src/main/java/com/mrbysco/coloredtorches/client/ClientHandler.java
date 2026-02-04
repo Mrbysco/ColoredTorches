@@ -4,7 +4,7 @@ import com.mrbysco.coloredtorches.ColoredTorchesMod;
 import com.mrbysco.coloredtorches.client.particle.ColoredFlameParticle;
 import com.mrbysco.coloredtorches.registry.ParticleRegistry;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
@@ -18,7 +18,7 @@ public class ClientHandler {
 
 	public static void addPackFinders(AddPackFindersEvent event) {
 		if (event.getPackType() == PackType.CLIENT_RESOURCES) {
-			event.addPackFinders(ResourceLocation.fromNamespaceAndPath(ColoredTorchesMod.MOD_ID, "programmer_art"), PackType.CLIENT_RESOURCES,
+			event.addPackFinders(Identifier.fromNamespaceAndPath(ColoredTorchesMod.MOD_ID, "programmer_art"), PackType.CLIENT_RESOURCES,
 					Component.literal("Programmer Art"), PackSource.BUILT_IN, false, Pack.Position.TOP);
 		}
 	}
