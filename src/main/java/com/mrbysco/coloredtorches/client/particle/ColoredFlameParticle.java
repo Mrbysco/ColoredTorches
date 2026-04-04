@@ -41,11 +41,12 @@ public class ColoredFlameParticle extends RisingParticle {
 		return SingleQuadParticle.Layer.OPAQUE;
 	}
 
+
 	@Override
-	public int getLightColor(float partialTick) {
+	public int getLightCoords(float partialTick) {
 		float f = ((float) this.age + partialTick) / (float) this.lifetime;
 		f = Mth.clamp(f, 0.0F, 1.0F);
-		int i = super.getLightColor(partialTick);
+		int i = super.getLightCoords(partialTick);
 		int j = i & 255;
 		int k = i >> 16 & 255;
 		j += (int) (f * 15.0F * 16.0F);

@@ -3,15 +3,11 @@ package com.mrbysco.coloredtorches.data.data;
 import com.mrbysco.coloredtorches.registry.TorchRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
-import net.minecraft.core.WritableRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.LootTableProvider;
-import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
 import java.util.List;
@@ -23,11 +19,6 @@ public class TorchLootProvider extends LootTableProvider {
 		super(packOutput, Set.of(), List.of(
 				new SubProviderEntry(TorchBlockLoot::new, LootContextParamSets.BLOCK)
 		), registries);
-	}
-
-	@Override
-	protected void validate(WritableRegistry<LootTable> writableRegistry, ValidationContext validationContext, ProblemReporter.Collector problemReporter) {
-		super.validate(writableRegistry, validationContext, problemReporter);
 	}
 
 	private static class TorchBlockLoot extends BlockLootSubProvider {

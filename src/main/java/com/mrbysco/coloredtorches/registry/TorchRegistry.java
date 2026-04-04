@@ -6,6 +6,7 @@ import com.mrbysco.coloredtorches.block.ColoredWallTorchBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.DyeColor;
@@ -61,22 +62,22 @@ public class TorchRegistry {
 	public static final DeferredBlock<ColoredWallTorchBlock> WALL_RED_TORCH = registerWallTorch(DyeColor.RED, RED_TORCH);
 	public static final DeferredBlock<ColoredWallTorchBlock> WALL_BLACK_TORCH = registerWallTorch(DyeColor.BLACK, BLACK_TORCH);
 
-	public static final DeferredItem<Item> WHITE_TORCH_ITEM = registerTorchItem(WHITE_TORCH, WALL_WHITE_TORCH);
-	public static final DeferredItem<Item> ORANGE_TORCH_ITEM = registerTorchItem(ORANGE_TORCH, WALL_ORANGE_TORCH);
-	public static final DeferredItem<Item> MAGENTA_TORCH_ITEM = registerTorchItem(MAGENTA_TORCH, WALL_MAGENTA_TORCH);
-	public static final DeferredItem<Item> LIGHT_BLUE_TORCH_ITEM = registerTorchItem(LIGHT_BLUE_TORCH, WALL_LIGHT_BLUE_TORCH);
-	public static final DeferredItem<Item> YELLOW_TORCH_ITEM = registerTorchItem(YELLOW_TORCH, WALL_YELLOW_TORCH);
-	public static final DeferredItem<Item> LIME_TORCH_ITEM = registerTorchItem(LIME_TORCH, WALL_LIME_TORCH);
-	public static final DeferredItem<Item> PINK_TORCH_ITEM = registerTorchItem(PINK_TORCH, WALL_PINK_TORCH);
-	public static final DeferredItem<Item> GRAY_TORCH_ITEM = registerTorchItem(GRAY_TORCH, WALL_GRAY_TORCH);
-	public static final DeferredItem<Item> LIGHT_GRAY_TORCH_ITEM = registerTorchItem(LIGHT_GRAY_TORCH, WALL_LIGHT_GRAY_TORCH);
-	public static final DeferredItem<Item> CYAN_TORCH_ITEM = registerTorchItem(CYAN_TORCH, WALL_CYAN_TORCH);
-	public static final DeferredItem<Item> PURPLE_TORCH_ITEM = registerTorchItem(PURPLE_TORCH, WALL_PURPLE_TORCH);
-	public static final DeferredItem<Item> BLUE_TORCH_ITEM = registerTorchItem(BLUE_TORCH, WALL_BLUE_TORCH);
-	public static final DeferredItem<Item> BROWN_TORCH_ITEM = registerTorchItem(BROWN_TORCH, WALL_BROWN_TORCH);
-	public static final DeferredItem<Item> GREEN_TORCH_ITEM = registerTorchItem(GREEN_TORCH, WALL_GREEN_TORCH);
-	public static final DeferredItem<Item> RED_TORCH_ITEM = registerTorchItem(RED_TORCH, WALL_RED_TORCH);
-	public static final DeferredItem<Item> BLACK_TORCH_ITEM = registerTorchItem(BLACK_TORCH, WALL_BLACK_TORCH);
+	public static final DeferredItem<BlockItem> WHITE_TORCH_ITEM = registerTorchItem(WHITE_TORCH, WALL_WHITE_TORCH);
+	public static final DeferredItem<BlockItem> ORANGE_TORCH_ITEM = registerTorchItem(ORANGE_TORCH, WALL_ORANGE_TORCH);
+	public static final DeferredItem<BlockItem> MAGENTA_TORCH_ITEM = registerTorchItem(MAGENTA_TORCH, WALL_MAGENTA_TORCH);
+	public static final DeferredItem<BlockItem> LIGHT_BLUE_TORCH_ITEM = registerTorchItem(LIGHT_BLUE_TORCH, WALL_LIGHT_BLUE_TORCH);
+	public static final DeferredItem<BlockItem> YELLOW_TORCH_ITEM = registerTorchItem(YELLOW_TORCH, WALL_YELLOW_TORCH);
+	public static final DeferredItem<BlockItem> LIME_TORCH_ITEM = registerTorchItem(LIME_TORCH, WALL_LIME_TORCH);
+	public static final DeferredItem<BlockItem> PINK_TORCH_ITEM = registerTorchItem(PINK_TORCH, WALL_PINK_TORCH);
+	public static final DeferredItem<BlockItem> GRAY_TORCH_ITEM = registerTorchItem(GRAY_TORCH, WALL_GRAY_TORCH);
+	public static final DeferredItem<BlockItem> LIGHT_GRAY_TORCH_ITEM = registerTorchItem(LIGHT_GRAY_TORCH, WALL_LIGHT_GRAY_TORCH);
+	public static final DeferredItem<BlockItem> CYAN_TORCH_ITEM = registerTorchItem(CYAN_TORCH, WALL_CYAN_TORCH);
+	public static final DeferredItem<BlockItem> PURPLE_TORCH_ITEM = registerTorchItem(PURPLE_TORCH, WALL_PURPLE_TORCH);
+	public static final DeferredItem<BlockItem> BLUE_TORCH_ITEM = registerTorchItem(BLUE_TORCH, WALL_BLUE_TORCH);
+	public static final DeferredItem<BlockItem> BROWN_TORCH_ITEM = registerTorchItem(BROWN_TORCH, WALL_BROWN_TORCH);
+	public static final DeferredItem<BlockItem> GREEN_TORCH_ITEM = registerTorchItem(GREEN_TORCH, WALL_GREEN_TORCH);
+	public static final DeferredItem<BlockItem> RED_TORCH_ITEM = registerTorchItem(RED_TORCH, WALL_RED_TORCH);
+	public static final DeferredItem<BlockItem> BLACK_TORCH_ITEM = registerTorchItem(BLACK_TORCH, WALL_BLACK_TORCH);
 
 	public static DeferredBlock<ColoredTorchBlock> registerTorch(DyeColor color) {
 		String name = color.getName() + "_torch";
@@ -94,7 +95,7 @@ public class TorchRegistry {
 						.pushReaction(PushReaction.DESTROY));
 	}
 
-	public static DeferredItem<Item> registerTorchItem(DeferredBlock<ColoredTorchBlock> torchObject, DeferredBlock<ColoredWallTorchBlock> wallTorchObject) {
+	public static DeferredItem<BlockItem> registerTorchItem(DeferredBlock<ColoredTorchBlock> torchObject, DeferredBlock<ColoredWallTorchBlock> wallTorchObject) {
 		return ITEMS.registerItem(torchObject.getId().getPath(), (properties) ->
 				new StandingAndWallBlockItem(torchObject.get(), wallTorchObject.get(), Direction.DOWN, properties), () -> new Item.Properties().useBlockDescriptionPrefix());
 	}
