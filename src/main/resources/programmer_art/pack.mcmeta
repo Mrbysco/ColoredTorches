@@ -1,6 +1,12 @@
 {
   "pack": {
     "description": "Colored Torches programmer art",
-    "pack_format": 15
+    "pack_format": 101,
+    "supported_formats": [
+      15,
+      101
+    ],
+    "min_format": 15,
+    "max_format": 101
   }
 }
