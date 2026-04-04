@@ -1,1 +1,1 @@
-* Update to 26.1.1
+* Fix programmer-art pack showing as unsupported
